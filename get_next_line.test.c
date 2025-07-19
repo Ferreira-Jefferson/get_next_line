@@ -6,18 +6,22 @@
 /*   By: jtertuli <jtertuli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 16:55:54 by jtertuli          #+#    #+#             */
-/*   Updated: 2025/07/19 16:58:00 by jtertuli         ###   ########.fr       */
+/*   Updated: 2025/07/19 17:02:34 by jtertuli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minunit.h"
+#include "get_next_line.h"
 
-MU_TEST(test_check) {
-	mu_check(5 == 5);
+MU_TEST(initial_test) {
+	char	*expected = "";
+	char	*result = get_next_line(1);
+	
+	mu_assert_string_eq(expected, result);
 }
 
 MU_TEST_SUITE(test_suite) {
-	MU_RUN_TEST(test_check);
+	MU_RUN_TEST(initial_test);
 }
 
 int	main(void)

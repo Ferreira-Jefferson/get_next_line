@@ -6,8 +6,12 @@
 /*   By: jtertuli <jtertuli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 15:24:36 by jtertuli          #+#    #+#             */
-/*   Updated: 2025/07/19 16:55:14 by jtertuli         ###   ########.fr       */
+/*   Updated: 2025/07/19 17:03:28 by jtertuli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*get_next_line(int fd);
+char	*get_next_line(int fd)
+{
+	(void) fd;
+	return ("");
+}
