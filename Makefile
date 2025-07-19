@@ -1,6 +1,6 @@
 NAME = gnl
 
-SRC = get_next_line.c
+SRC = get_next_line.c get_next_line_utils.c
 SRC_TEST = get_next_line.test.c
 
 CC = gcc
