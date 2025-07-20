@@ -6,11 +6,22 @@
 /*   By: jtertuli <jtertuli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 17:48:07 by jtertuli          #+#    #+#             */
-/*   Updated: 2025/07/20 07:51:52 by jtertuli         ###   ########.fr       */
+/*   Updated: 2025/07/20 08:17:15 by jtertuli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+size_t	ft_strlen(const char *s)
+{
+	size_t	size;
+	if (!s)
+		return (0);
+	size = 0;
+	while (*s++)
+		size++;
+	return (size);
+}
 
 char	*ft_strchr(const char *s, int c)
 {

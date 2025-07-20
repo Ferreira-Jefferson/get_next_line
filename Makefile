@@ -1,7 +1,8 @@
 NAME = gnl
 
 SRC = get_next_line_utils.c get_next_line.c
-SRC_TEST = ft_strchr.test.c ft_strdup.test.c get_next_line.test.c main.test.c 
+SRC_TEST = 	main.test.c get_next_line.test.c ft_strchr.test.c ft_strdup.test.c  \
+			ft_strlen.test.c
 
 CC = gcc
 FLAGS = -Wall -Werror -Wextra -g
