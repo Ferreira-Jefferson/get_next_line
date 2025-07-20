@@ -6,7 +6,7 @@
 /*   By: jtertuli <jtertuli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 06:36:56 by jtertuli          #+#    #+#             */
-/*   Updated: 2025/07/20 07:00:36 by jtertuli         ###   ########.fr       */
+/*   Updated: 2025/07/20 07:23:50 by jtertuli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ MU_TEST_SUITE(test_suite)
 
 int	ft_strchr_test(void)
 {
+	printf("ft_strchr_test: ");
 	MU_RUN_SUITE(test_suite);
 	MU_REPORT();
 	return (MU_EXIT_CODE);
