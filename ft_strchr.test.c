@@ -6,7 +6,7 @@
 /*   By: jtertuli <jtertuli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 06:36:56 by jtertuli          #+#    #+#             */
-/*   Updated: 2025/07/20 06:57:44 by jtertuli         ###   ########.fr       */
+/*   Updated: 2025/07/20 07:00:36 by jtertuli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ MU_TEST(test_grab_start_str)
 	char	c = '1';
 
 	char	*expected = "123454321";
-	char	*result =(str, c);
+	char	*result = ft_strchr(str, c);
 	
 	mu_assert_string_eq(expected, result);
 }
@@ -30,7 +30,7 @@ MU_TEST(test_grab_middle_str)
 	char	c = '5';
 
 	char	*expected = "54321";
-	char	*result =(str, c);
+	char	*result = ft_strchr(str, c);
 	
 	mu_assert_string_eq(expected, result);
 }
@@ -41,7 +41,7 @@ MU_TEST(test_grab_end_str)
 	char	c = '0';
 
 	char	*expected = "0";
-	char	*result =(str, c);
+	char	*result = ft_strchr(str, c);
 	
 	mu_assert_string_eq(expected, result);
 }
@@ -52,7 +52,7 @@ MU_TEST(test_grab_null_terminator)
 	char	c = '\0';
 
 	char	*expected = "";
-	char	*result =(str, c);
+	char	*result = ft_strchr(str, c);
 	
 	mu_assert_string_eq(expected, result);
 }
@@ -63,7 +63,7 @@ MU_TEST(test_not_value_in_str)
 	char	c = 'x';
 
 	char	*expected = NULL;
-	char	*result =(str, c);
+	char	*result = ft_strchr(str, c);
 	
 	mu_assert_string_eq(expected, result);
 }
