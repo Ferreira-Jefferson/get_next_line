@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jtertuli <jtertuli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/19 15:24:22 by jtertuli          #+#    #+#             */
-/*   Updated: 2025/07/21 16:03:01 by jtertuli         ###   ########.fr       */
+/*   Created: 2025/07/21 12:35:26 by jtertuli          #+#    #+#             */
+/*   Updated: 2025/07/21 14:11:10 by jtertuli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include <stdio.h>
+#include "get_next_line.h"
 
-# include <stdlib.h>
-# include <fcntl.h>
-# include <unistd.h>
+int	main(void)
+{
+	int fd = open("file.txt", O_RDONLY);
+	char *line;
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
-# endif
-
-char	*get_next_line(int fd);
-char	*ft_strdup(const char *s);
-size_t	ft_strlen(const char *s);
-int		ft_find_newline(char *buffer);
-char	*ft_strjoin(char const *s1, char const *s2);
-
-#endif
+	while (1)
+	{
+		line = get_next_line(fd);
+		if(!line)
+			break;
+		printf("[%s]", line);
+		free(line);
+	}
+	close(fd);
+	return (0);
+}

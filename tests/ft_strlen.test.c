@@ -6,12 +6,12 @@
 /*   By: jtertuli <jtertuli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 07:59:37 by jtertuli          #+#    #+#             */
-/*   Updated: 2025/07/20 13:16:53 by jtertuli         ###   ########.fr       */
+/*   Updated: 2025/07/21 10:25:34 by jtertuli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minunit.h"
-#include "get_next_line.h"
+#include "get_next_line_test.h"
 
 MU_TEST(test_empty_str)
 {

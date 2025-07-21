@@ -6,12 +6,12 @@
 /*   By: jtertuli <jtertuli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 06:36:56 by jtertuli          #+#    #+#             */
-/*   Updated: 2025/07/20 07:53:53 by jtertuli         ###   ########.fr       */
+/*   Updated: 2025/07/21 10:25:39 by jtertuli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minunit.h"
-#include "get_next_line.h"
+#include "get_next_line_test.h"
 
 MU_TEST(test_null_str)
 {
@@ -53,7 +53,7 @@ MU_TEST_SUITE(test_suite)
 
 int ft_strdup_test(void)
 {
-	printf("ft_strdup_test: ");
+	printf("%sft_strdup_test: %s", ANSI_COLOR_BLUE, ANSI_COLOR_RESET);
 	MU_RUN_SUITE(test_suite);
 	MU_REPORT();
 	return (MU_EXIT_CODE);

@@ -6,25 +6,17 @@
 /*   By: jtertuli <jtertuli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 15:24:22 by jtertuli          #+#    #+#             */
-/*   Updated: 2025/07/21 16:03:01 by jtertuli         ###   ########.fr       */
+/*   Updated: 2025/07/21 10:23:15 by jtertuli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_TEST_H
+# define GET_NEXT_LINE_TEST_H
 
-# include <stdlib.h>
-# include <fcntl.h>
-# include <unistd.h>
+# define ANSI_COLOR_BLUE    "\x1b[34m"
+# define ANSI_COLOR_RESET   "\x1b[0m"
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
-# endif
-
-char	*get_next_line(int fd);
-char	*ft_strdup(const char *s);
-size_t	ft_strlen(const char *s);
-int		ft_find_newline(char *buffer);
-char	*ft_strjoin(char const *s1, char const *s2);
+# include <stdio.h>
+# include "../get_next_line.h"
 
 #endif
