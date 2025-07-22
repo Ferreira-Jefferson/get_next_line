@@ -6,7 +6,7 @@
 /*   By: jtertuli <jtertuli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 12:35:26 by jtertuli          #+#    #+#             */
-/*   Updated: 2025/07/21 14:11:10 by jtertuli         ###   ########.fr       */
+/*   Updated: 2025/07/22 15:07:03 by jtertuli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,22 @@
 int	main(void)
 {
 	int fd = open("file.txt", O_RDONLY);
+	int fd2 = open("file copy.txt", O_RDONLY);
 	char *line;
 
-	while (1)
-	{
-		line = get_next_line(fd);
-		if(!line)
-			break;
-		printf("[%s]", line);
-		free(line);
-	}
+	line = get_next_line(fd);
+	printf("[%s]", line);
+	free(line);
+	line = get_next_line(fd2);
+	printf("[%s]", line);
+	free(line);
+	line = get_next_line(fd);
+	printf("[%s]", line);
+	free(line);
+		line = get_next_line(fd2);
+	printf("[%s]", line);
+	free(line);
+
 	close(fd);
 	return (0);
 }

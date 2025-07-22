@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jtertuli <jtertuli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 15:24:22 by jtertuli          #+#    #+#             */
-/*   Updated: 2025/07/22 15:33:16 by jtertuli         ###   ########.fr       */
+/*   Updated: 2025/07/22 15:34:56 by jtertuli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
 # include <stdlib.h>
 # include <fcntl.h>
@@ -20,6 +20,12 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
 # endif
+
+typedef struct s_stash {
+	int		fd;
+	char	*content;
+	struct s_stash *next;
+} t_stash;
 
 char	*get_next_line(int fd);
 char	*ft_strdup(char *s1);
