@@ -6,7 +6,7 @@
 /*   By: jtertuli <jtertuli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 15:24:36 by jtertuli          #+#    #+#             */
-/*   Updated: 2025/07/23 14:51:30 by jtertuli         ###   ########.fr       */
+/*   Updated: 2025/07/23 14:54:36 by jtertuli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,49 @@ static void remove_stash(t_stash **stash_array, int fd)
 		free(current_stash_array->content);
 	last->next = current_stash_array->next;
 	free(current_stash_array);
+}
+
+static size_t get_newline(char *content)
+{
+	int	count;
+
+	count = 0;
+	while (content && *content)
+	{
+		count++;
+		if (*content == '\n')
+			return (count);
+		content++;
+	}
+	return (0);	
+}
+
+static char *get_newline_content(t_stash **stash)
+{
+	size_t			pos_newline;
+	char			*content_stash;
+	char			*to_free;
+	t_stash			*aux_stash;
+	size_t			size_content;
+
+	aux_stash = *stash;
+	pos_newline = get_newline(aux_stash->content);
+	if (pos_newline <= 0)
+		return (NULL);
+	size_content = 0;
+	while(aux_stash->content[size_content])
+		size_content++;
+	if (size_content == pos_newline)
+	{
+		content_stash = aux_stash->content;
+		aux_stash->content = ft_strdup("");
+		return (content_stash);
+	}
+	to_free = aux_stash->content;
+	aux_stash->content = ft_substr(aux_stash->content, pos_newline, size_content - pos_newline);
+	content_stash = ft_substr(to_free, 0, pos_newline);
+	free(to_free);
+	return (content_stash);	
 }
 
 static int get_content(t_stash **stash, char **buffer, char **content_stash)
