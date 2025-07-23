@@ -6,7 +6,7 @@
 /*   By: jtertuli <jtertuli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 17:48:07 by jtertuli          #+#    #+#             */
-/*   Updated: 2025/07/23 14:56:14 by jtertuli         ###   ########.fr       */
+/*   Updated: 2025/07/23 14:59:55 by jtertuli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,19 +69,12 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 char	*ft_strjoin(char *s1, char *s2)
 {
 	char			*res;
+	unsigned int	i;
+	unsigned int	j;
 
 	res = (char *) malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
 	if (!res)
 		return (NULL);
-	populate_str(res, s1, s2);
-	return (res);
-}
-
-void	populate_str(char *res, char *s1, char *s2)
-{
-	unsigned int	i;
-	unsigned int	j;
-
 	i = 0;
 	j = 0;
 	while (s1[j])
@@ -90,4 +83,5 @@ void	populate_str(char *res, char *s1, char *s2)
 	while (s2[j])
 		res[i++] = s2[j++];
 	res[i] = '\0';
+	return (res);
 }
