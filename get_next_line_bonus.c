@@ -6,7 +6,7 @@
 /*   By: jtertuli <jtertuli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 15:24:36 by jtertuli          #+#    #+#             */
-/*   Updated: 2025/07/22 15:47:32 by jtertuli         ###   ########.fr       */
+/*   Updated: 2025/07/23 14:51:30 by jtertuli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,47 +80,33 @@ static void remove_stash(t_stash **stash_array, int fd)
 	free(current_stash_array);
 }
 
-static size_t get_newline(char *content)
+static int get_content(t_stash **stash, char **buffer, char **content_stash)
 {
-	int	count;
-
-	if (!content)
-		return (0);
-	count = 0;
-	while (*content)
-	{
-		count++;
-		if (*content == '\n')
-			return (count);
-		content++;
-	}
-	return (0);	
-}
-
-static char *get_newline_content(t_stash **stash)
-{
-	size_t			pos_newline;
-	char			*content_stash;
+	ssize_t			size_buffer;
 	char			*to_free;
-	t_stash			*aux_stash;
-
-	aux_stash = *stash;
-	pos_newline = get_newline(aux_stash->content);
-	if (pos_newline > 0)
+	
+	*buffer = (char *) malloc((BUFFER_SIZE + 1) * sizeof(char)); 
+	size_buffer = 1;
+	while (size_buffer)
 	{
-		if (ft_strlen(aux_stash->content) == pos_newline)
+		size_buffer = read((*stash)->fd, *buffer, BUFFER_SIZE);
+		(*buffer)[size_buffer] = '\0';
+		to_free = (*stash)->content;
+		(*stash)->content = ft_strjoin((*stash)->content, *buffer);
+		if (!(*stash)->content)
 		{
-			content_stash = aux_stash->content;
-			aux_stash->content = ft_strdup("");
-			return (content_stash);
+			free(*buffer);
+			return (1);
 		}
-		to_free = aux_stash->content;
-		aux_stash->content = ft_substr(aux_stash->content, pos_newline, ft_strlen(aux_stash->content) - pos_newline);
-		content_stash = ft_substr(to_free, 0, pos_newline);
 		free(to_free);
-		return (content_stash);
+		*content_stash = get_newline_content(stash);
+		if (*content_stash)
+		{
+			free(*buffer);
+			return (1);
+		}
 	}
-	return (NULL);
+	return (0);
 }
 
 char	*get_next_line(int fd)
@@ -128,10 +114,8 @@ char	*get_next_line(int fd)
 	char			*buffer;
 	static t_stash	*stash_array;
 	t_stash			*stash;
-	ssize_t			size_buffer;
 	char			*content_stash;
-	char			*to_free;
-	
+
 	stash = get_stash(stash_array, fd);
 	if(fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (NULL);	
@@ -140,34 +124,12 @@ char	*get_next_line(int fd)
 	content_stash = get_newline_content(&stash);
 	if (content_stash)
 		return (content_stash);
-	buffer = (char *) malloc((BUFFER_SIZE + 1) * sizeof(char)); 
-	size_buffer = 1;
-	while (size_buffer)
-	{
-		size_buffer = read(stash->fd, buffer, BUFFER_SIZE);
-		buffer[size_buffer] = '\0';
-		to_free = stash->content;
-		stash->content = ft_strjoin(stash->content, buffer);
-		if (!stash->content)
-		{
-			free(buffer);
-			return (NULL);
-		}
-		free(to_free);
-		content_stash = get_newline_content(&stash);
-		if (content_stash)
-		{
-			free(buffer);
-			return (content_stash);
-		}
-	}
-	if (ft_strlen(stash->content))
-	{	
-		content_stash = ft_strdup(stash->content);
-		remove_stash(&stash_array, fd);
-		free(buffer);
+	if (get_content(&stash, &buffer, &content_stash))
 		return (content_stash);
-	}
 	free(buffer);
-	return (NULL);
+	if (!stash->content[0])
+		return (NULL);
+	content_stash = ft_strdup(stash->content);
+	remove_stash(&stash_array, fd);
+	return (content_stash);
 }
