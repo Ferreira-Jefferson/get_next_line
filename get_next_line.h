@@ -6,7 +6,7 @@
 /*   By: jtertuli <jtertuli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 15:24:22 by jtertuli          #+#    #+#             */
-/*   Updated: 2025/07/24 08:33:16 by jtertuli         ###   ########.fr       */
+/*   Updated: 2025/07/24 17:56:14 by jtertuli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,9 @@
 # endif
 
 char	*get_next_line(int fd);
-char	*ft_strdup(char *s1);
 size_t	ft_strlen(char *s);
+char	*ft_strdup(char *s1);
 char	*ft_substr(char *s, unsigned int start, size_t len);
 char	*ft_strjoin(char *s1, char *s2);
-void	populate_str(char *res, char *s1, char *s2);
 
 #endif
