@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
+/*   get_next_line_bonus_linked_list.h                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jtertuli <jtertuli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 15:24:22 by jtertuli          #+#    #+#             */
-/*   Updated: 2025/07/23 15:00:01 by jtertuli         ###   ########.fr       */
+/*   Updated: 2025/07/24 16:35:08 by jtertuli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_BONUS_H
 # define GET_NEXT_LINE_BONUS_H
 
-# include <stdlib.h>
-# include <fcntl.h>
-# include <unistd.h>
+#include <stdlib.h>
+#include <fcntl.h>
+#include <unistd.h>
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
-# endif
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 42
+#endif
 
 typedef struct s_stash {
 	int		fd;

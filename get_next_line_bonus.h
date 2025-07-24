@@ -6,7 +6,7 @@
 /*   By: jtertuli <jtertuli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 15:24:22 by jtertuli          #+#    #+#             */
-/*   Updated: 2025/07/23 15:00:01 by jtertuli         ###   ########.fr       */
+/*   Updated: 2025/07/24 16:35:49 by jtertuli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,7 @@
 #  define BUFFER_SIZE 42
 # endif
 
-typedef struct s_stash {
-	int		fd;
-	char	*content;
-	struct s_stash *next;
-} t_stash;
+# define OPEN_MAX 1048576
 
 char	*get_next_line(int fd);
 size_t	ft_strlen(char *s);

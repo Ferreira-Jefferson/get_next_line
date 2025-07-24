@@ -6,7 +6,7 @@
 /*   By: jtertuli <jtertuli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 15:24:36 by jtertuli          #+#    #+#             */
-/*   Updated: 2025/07/21 17:15:08 by jtertuli         ###   ########.fr       */
+/*   Updated: 2025/07/24 16:33:39 by jtertuli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ char	*get_next_line(int fd)
 	left_c = define_line(line);
 	return (line);
 }
-
 
 static char	*define_line(char *line_buffer)
 {

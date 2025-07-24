@@ -3,6 +3,8 @@
 		"stdio.h": "c",
 		"stdlib.h": "c",
 		"fcntl.h": "c",
-		"sstream": "c"
+		"sstream": "c",
+		"limits.h": "c",
+		"unistd.h": "c"
 	}
 }

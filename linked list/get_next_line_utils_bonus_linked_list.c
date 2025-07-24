@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus_linked_list.c            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jtertuli <jtertuli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 17:48:07 by jtertuli          #+#    #+#             */
-/*   Updated: 2025/07/23 14:59:55 by jtertuli         ###   ########.fr       */
+/*   Updated: 2025/07/24 16:32:10 by jtertuli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "get_next_line_bonus_linked_list.h"
 
 char	*ft_strdup(char *s1)
 {

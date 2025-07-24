@@ -6,7 +6,7 @@
 /*   By: jtertuli <jtertuli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 17:48:07 by jtertuli          #+#    #+#             */
-/*   Updated: 2025/07/23 14:59:55 by jtertuli         ###   ########.fr       */
+/*   Updated: 2025/07/24 16:33:19 by jtertuli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,16 @@ char	*ft_strjoin(char *s1, char *s2)
 	char			*res;
 	unsigned int	i;
 	unsigned int	j;
+	char			*aux_s1;
 
-	res = (char *) malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+	aux_s1 = s1;
+	res = (char *) malloc((ft_strlen(aux_s1) + ft_strlen(s2) + 1));
 	if (!res)
 		return (NULL);
 	i = 0;
 	j = 0;
-	while (s1[j])
-		res[i++] = s1[j++];
+	while (aux_s1[j])
+		res[i++] = aux_s1[j++];
 	j = 0;
 	while (s2[j])
 		res[i++] = s2[j++];

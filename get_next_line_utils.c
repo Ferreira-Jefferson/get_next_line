@@ -6,11 +6,11 @@
 /*   By: jtertuli <jtertuli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 17:48:07 by jtertuli          #+#    #+#             */
-/*   Updated: 2025/07/21 17:13:01 by jtertuli         ###   ########.fr       */
+/*   Updated: 2025/07/24 08:26:04 by jtertuli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_strdup(char *s1)
 {
@@ -43,43 +43,38 @@ size_t	ft_strlen(char *s)
 char	*ft_substr(char *s, unsigned int start, size_t len)
 {
 	size_t	i;
-	char	*str;
+	size_t	size_s;
+	char	*sub;
 
 	if (!s)
 		return (NULL);
-	if (start > ft_strlen(s))
-		return (malloc(1));
-	if (len > ft_strlen(s + start))
-		len = ft_strlen(s + start);
-	str = malloc((len + 1) * sizeof(char));
-	if (!str)
+	size_s = ft_strlen(s);
+	if (start > size_s)
+		return (ft_strdup(""));
+	if (start + len > size_s)
+		len = size_s - start;
+	sub = (char *) malloc((len + 1) * sizeof(char));
+	if (!sub)
 		return (NULL);
 	i = 0;
 	while (i < len)
 	{
-		str[i] = s[start + i];
+		sub[i] = s[start + i];
 		i++;
 	}
-	str[i] = 0;
-	return (str);
+	sub[i] = '\0';
+	return (sub);
 }
 
 char	*ft_strjoin(char *s1, char *s2)
 {
 	char			*res;
+	unsigned int	i;
+	unsigned int	j;
 
 	res = (char *) malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
 	if (!res)
 		return (NULL);
-	populate_str(res, s1, s2);
-	return (res);
-}
-
-void	populate_str(char *res, char *s1, char *s2)
-{
-	unsigned int	i;
-	unsigned int	j;
-
 	i = 0;
 	j = 0;
 	while (s1[j])
@@ -88,4 +83,5 @@ void	populate_str(char *res, char *s1, char *s2)
 	while (s2[j])
 		res[i++] = s2[j++];
 	res[i] = '\0';
+	return (res);
 }

@@ -1,7 +1,7 @@
 NAME = gnl
 
 MANDATORY_SRC = get_next_line_utils.c get_next_line.c
-BONUS_SRC = get_next_line_utils_bonus.c get_next_line_bonus.c
+BONUS_SRC = ./tests/main.c get_next_line_utils_bonus.c get_next_line_bonus.c
 
 CC = gcc
 FLAGS = -Wall -Werror -Wextra -g
