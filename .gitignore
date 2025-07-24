@@ -1,7 +1,7 @@
 # vscode
 .vscode/
 # bin
-gnl
+gnl*
 
 # Prerequisites
 *.d

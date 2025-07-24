@@ -6,105 +6,104 @@
 /*   By: jtertuli <jtertuli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 15:24:36 by jtertuli          #+#    #+#             */
-/*   Updated: 2025/07/24 16:33:39 by jtertuli         ###   ########.fr       */
+/*   Updated: 2025/07/24 17:43:01 by jtertuli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
-static char		*populate_line_buffer(int fd, char *left_c, char *buffer);
-static char		*define_line(char *line);
-static char		*ft_strchr(char *s, int c);
+static int	free_if_error(char **stash, char *temp_line)
+{
+	if (*stash)
+	{
+		free(*stash);
+		*stash = NULL;
+	}
+	if (temp_line)
+		free(temp_line);
+	return (-1);
+}
+
+static int	search_newline(char **stash, char **line)
+{
+	int		count;
+	char	*temp_rest;
+	char	*temp_line;
+
+	if (!*stash)
+		return (-1);
+	count = 0;
+	while ((*stash)[count])
+	{
+		if ((*stash)[count] == '\n')
+		{
+			temp_line = ft_substr(*stash, 0, count + 1);
+			if (!temp_line)
+				return (free_if_error(stash, NULL));
+			temp_rest = ft_strdup(*stash + count + 1);
+			if (!temp_rest)
+				return (free_if_error(stash, temp_line));
+			free(*stash);
+			*stash = temp_rest;
+			*line = temp_line;
+			return (1);
+		}
+		count++;
+	}
+	return (0);
+}
+
+char	*read_content(int fd, char **stash)
+{
+	char	*buffer;
+	ssize_t	bytes;
+	char	*to_free;
+
+	buffer = malloc(BUFFER_SIZE + 1);
+	if (!buffer)
+		return (NULL);
+	bytes = read(fd, buffer, BUFFER_SIZE);
+	if (bytes <= 0)
+	{
+		free(buffer);
+		return (NULL);
+	}
+	buffer[bytes] = '\0';
+	to_free = *stash;
+	*stash = ft_strjoin(*stash, buffer);
+	if (!*stash)
+	{
+		free(to_free);
+		return (NULL);
+	}
+	free(to_free);
+	free(buffer);
+	return (*stash);
+}
 
 char	*get_next_line(int fd)
 {
-	static char	*left_c;
+	static char	*stash;
 	char		*line;
-	char		*buffer;
 
-	buffer = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
-	{
-		free(left_c);
-		free(buffer);
-		left_c = NULL;
-		buffer = NULL;
-		return (0);
-	}
-	if (!buffer)
 		return (NULL);
-	line = populate_line_buffer(fd, left_c, buffer);
-	free(buffer);
-	buffer = NULL;
-	if (!line)
-		return (NULL);
-	left_c = define_line(line);
-	return (line);
-}
-
-static char	*define_line(char *line_buffer)
-{
-	char	*left_c;
-	ssize_t	i;
-
-	i = 0;
-	while (line_buffer[i] != '\n' && line_buffer[i] != '\0')
-		i++;
-	if (line_buffer[i] == 0)
-		return (0);
-	left_c = ft_substr(line_buffer, i + 1, ft_strlen(line_buffer) - i);
-	if (*left_c == 0)
+	if (!stash)
+		stash = ft_strdup("");
+	while (1)
 	{
-		free(left_c);
-		left_c = NULL;
-	}
-	line_buffer[i + 1] = 0;
-	return (left_c);
-}
-
-static char	*populate_line_buffer(int fd, char *left_c, char *buffer)
-{
-	ssize_t	b_read;
-	char	*tmp;
-
-	b_read = 1;
-	while (b_read > 0)
-	{
-		b_read = read(fd, buffer, BUFFER_SIZE);
-		if (b_read == -1)
-		{
-			free(left_c);
-			return (0);
-		}
-		else if (b_read == 0)
-			break ;
-		buffer[b_read] = 0;
-		if (!left_c)
-			left_c = ft_strdup("");
-		tmp = left_c;
-		left_c = ft_strjoin(tmp, buffer);
-		free(tmp);
-		tmp = NULL;
-		if (ft_strchr(buffer, '\n'))
+		if (search_newline(&stash, &line) == 1)
+			return (line);
+		if (!read_content(fd, &stash))
 			break ;
 	}
-	return (left_c);
-}
-
-static char	*ft_strchr(char *s, int c)
-{
-	unsigned int	i;
-	char			cc;
-
-	cc = (char) c;
-	i = 0;
-	while (s[i])
+	if (stash && stash[0])
 	{
-		if (s[i] == cc)
-			return ((char *) &s[i]);
-		i++;
+		line = stash;
+		stash = NULL;
+		return (line);
 	}
-	if (s[i] == cc)
-		return ((char *) &s[i]);
-	return (NULL);
+	free(stash);
+	stash = NULL;
+	return (stash);
 }
