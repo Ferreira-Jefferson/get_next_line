@@ -6,7 +6,7 @@
 /*   By: jtertuli <jtertuli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 15:24:36 by jtertuli          #+#    #+#             */
-/*   Updated: 2025/07/24 16:25:21 by jtertuli         ###   ########.fr       */
+/*   Updated: 2025/07/25 11:27:02 by jtertuli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int	search_newline(char **stash, char **line)
 	return (0);
 }
 
-char	*read_content(int fd, char **stash)
+static char	*read_content(int fd, char **stash, int *read_error)
 {
 	char	*buffer;
 	ssize_t	bytes;
@@ -65,6 +65,7 @@ char	*read_content(int fd, char **stash)
 	bytes = read(fd, buffer, BUFFER_SIZE);
 	if (bytes <= 0)
 	{
+		*read_error = bytes;
 		free(buffer);
 		return (NULL);
 	}
@@ -85,19 +86,21 @@ char	*get_next_line(int fd)
 {
 	static char	*stash[OPEN_MAX];
 	char		*line;
+	int			read_error;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+	if (fd < 0 || fd >= OPEN_MAX || BUFFER_SIZE <= 0)
 		return (NULL);
 	if (!stash[fd])
 		stash[fd] = ft_strdup("");
 	while (1)
 	{
+		read_error = 0;
 		if (search_newline(&stash[fd], &line) == 1)
 			return (line);
-		if (!read_content(fd, &stash[fd]))
+		if (!read_content(fd, &stash[fd], &read_error) || read_error)
 			break ;
 	}
-	if (stash[fd] && stash[fd][0])
+	if (stash[fd] && stash[fd][0] && !read_error)
 	{
 		line = stash[fd];
 		stash[fd] = NULL;
@@ -105,5 +108,5 @@ char	*get_next_line(int fd)
 	}
 	free(stash[fd]);
 	stash[fd] = NULL;
-	return (stash[fd]);
+	return (NULL);
 }
