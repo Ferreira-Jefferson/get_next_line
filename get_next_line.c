@@ -6,7 +6,7 @@
 /*   By: jtertuli <jtertuli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 15:24:36 by jtertuli          #+#    #+#             */
-/*   Updated: 2025/07/26 08:08:16 by jtertuli         ###   ########.fr       */
+/*   Updated: 2025/07/26 08:29:09 by jtertuli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,5 @@ char	*get_next_line(int fd)
 		stash = NULL;
 		return (line);
 	}
-	free(stash);
-	stash = NULL;
-	return (NULL);
+	return (to_free((void **) &stash[fd]));
 }
