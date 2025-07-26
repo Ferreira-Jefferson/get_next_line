@@ -6,7 +6,7 @@
 /*   By: jtertuli <jtertuli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 15:24:36 by jtertuli          #+#    #+#             */
-/*   Updated: 2025/07/25 11:27:02 by jtertuli         ###   ########.fr       */
+/*   Updated: 2025/07/26 08:10:20 by jtertuli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,8 @@
 
 static int	free_if_error(char **stash, char *temp_line)
 {
-	if (*stash)
-	{
-		free(*stash);
-		*stash = NULL;
-	}
-	if (temp_line)
-		free(temp_line);
+	to_free((void **) stash);
+	to_free((void **) &temp_line);
 	return (-1);
 }
 
@@ -30,10 +25,8 @@ static int	search_newline(char **stash, char **line)
 	char	*temp_rest;
 	char	*temp_line;
 
-	if (!*stash)
-		return (-1);
 	count = 0;
-	while ((*stash)[count])
+	while (*stash && (*stash)[count])
 	{
 		if ((*stash)[count] == '\n')
 		{
@@ -57,7 +50,7 @@ static char	*read_content(int fd, char **stash, int *read_error)
 {
 	char	*buffer;
 	ssize_t	bytes;
-	char	*to_free;
+	char	*old_stash;
 
 	buffer = malloc(BUFFER_SIZE + 1);
 	if (!buffer)
@@ -66,18 +59,14 @@ static char	*read_content(int fd, char **stash, int *read_error)
 	if (bytes <= 0)
 	{
 		*read_error = bytes;
-		free(buffer);
-		return (NULL);
+		return (to_free((void **) &buffer));
 	}
 	buffer[bytes] = '\0';
-	to_free = *stash;
+	old_stash = *stash;
 	*stash = ft_strjoin(*stash, buffer);
 	if (!*stash)
-	{
-		free(to_free);
-		return (NULL);
-	}
-	free(to_free);
+		return (to_free((void **) &buffer));
+	free(old_stash);
 	free(buffer);
 	return (*stash);
 }
@@ -106,7 +95,5 @@ char	*get_next_line(int fd)
 		stash[fd] = NULL;
 		return (line);
 	}
-	free(stash[fd]);
-	stash[fd] = NULL;
-	return (NULL);
+	return (to_free((void **) &stash[fd]));
 }

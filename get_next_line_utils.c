@@ -6,7 +6,7 @@
 /*   By: jtertuli <jtertuli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 17:48:07 by jtertuli          #+#    #+#             */
-/*   Updated: 2025/07/24 08:26:04 by jtertuli         ###   ########.fr       */
+/*   Updated: 2025/07/26 08:11:00 by jtertuli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,14 @@ char	*ft_strjoin(char *s1, char *s2)
 		res[i++] = s2[j++];
 	res[i] = '\0';
 	return (res);
+}
+
+void	*to_free(void **this)
+{
+	if (*this)
+	{
+		free(*this);
+		*this = NULL;
+	}
+	return (NULL);
 }
