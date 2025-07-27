@@ -21,7 +21,7 @@ get_next_line/
 ├── get_next_line_utils.c
 ├── get_next_line_utils_bonus.c
 ├── Makefile
-├── linked list/
+├── .linked list/
 │   ├── get_next_line_bonus_linked_list.c
 │   ├── get_next_line_bonus_linked_list.h
 │   └── get_next_line_utils_bonus_linked_list.c
